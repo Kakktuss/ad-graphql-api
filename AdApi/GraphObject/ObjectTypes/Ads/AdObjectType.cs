@@ -10,27 +10,23 @@ namespace AdApi.GraphObject.Queries.Types.Ads
     {
         protected override void Configure(IObjectTypeDescriptor<Ad> descriptor)
         {
-            // Ignore domain events
             descriptor.Field(f => f.Uuid)
-                .Type<UuidType>()
-                .UseFiltering();
+                .Type<UuidType>();
             
             descriptor.Field(f => f.Title)
-                .Type<StringType>()
-                .UseFiltering();
+                .Type<StringType>();
             
             descriptor.Field(f => f.Description)
-                .Type<StringType>()
-                .UseFiltering();
+                .Type<StringType>();
 
             descriptor.Field(f => f.Categories)
+                .Type<ListType<CategoryObjectType>>()
                 .ResolveWith<AdResolver>(t => t.GetCategoriesAsync(default!, default!, default!, default!))
-                .Type<CategoryObjectType>()
                 .UseDbContext<AdDbContext>();
 
             descriptor.Field(f => f.Metrics)
+                .Type<ListType<MetricObjectType>>()
                 .ResolveWith<AdResolver>(t => t.GetMetricsAsync(default!, default!, default!, default!))
-                .Type<MetricObjectType>()
                 .UseDbContext<AdDbContext>();
         }
     }

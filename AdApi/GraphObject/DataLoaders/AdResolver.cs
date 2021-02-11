@@ -25,8 +25,9 @@ namespace AdApi.GraphObject.Queries.DataLoaders
                 .SelectMany(s => s.Ads.Select(t => t.CategoryId))
                 .ToArrayAsync(cancellationToken);
 
+            var entities = await categoryById.LoadAsync(categoriesId, cancellationToken);
 
-            return await categoryById.LoadAsync(categoriesId, cancellationToken);
+            return entities;
         }
         
         public async Task<IEnumerable<Metric>> GetMetricsAsync(
@@ -35,13 +36,15 @@ namespace AdApi.GraphObject.Queries.DataLoaders
             MetricByIdDataLoader metricById,
             CancellationToken cancellationToken)
         {
-            int[] categoriesId = await dbContext.Metrics
+            int[] metricsId = await dbContext.Metrics
                 .Where(s => s.Id == ad.Id)
                 .Include(s => s.Ads)
                 .SelectMany(s => s.Ads.Select(t => t.MetricId))
                 .ToArrayAsync(cancellationToken);
-            
-            return await metricById.LoadAsync(categoriesId, cancellationToken);
+
+            var entities = await metricById.LoadAsync(metricsId, cancellationToken);
+
+            return entities;
         }
     }
 }

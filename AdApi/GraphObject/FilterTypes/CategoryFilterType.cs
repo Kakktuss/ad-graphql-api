@@ -1,5 +1,4 @@
-﻿using AdApplication.Models.Ad;
-using AdApplication.Models.Categories;
+﻿using AdApplication.Models.Categories;
 using HotChocolate.Data.Filters;
 
 namespace AdApi.GraphObject.Queries.FilterTypes
@@ -9,7 +8,9 @@ namespace AdApi.GraphObject.Queries.FilterTypes
         protected override void Configure(IFilterInputTypeDescriptor<Category> descriptor)
         {
             descriptor.BindFieldsExplicitly();
-            descriptor.Field(f => f.Ads).Ignore();
+
+            descriptor.Field(e => e.Name)
+                .Type<StringOperationFilterInputType>();
         }
     }
 }

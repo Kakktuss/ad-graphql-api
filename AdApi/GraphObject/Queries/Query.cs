@@ -18,7 +18,8 @@ namespace AdApi.GraphObject.Queries
                 .AsNoTracking();
         }
         
-        [UseDbContext(typeof(AdDbContext))]
+/**
+ *         [UseDbContext(typeof(AdDbContext))]
         [UseFirstOrDefault]
         public IQueryable<Ad> GetAd(Guid uuid, [ScopedService] AdDbContext context)
         {
@@ -26,6 +27,7 @@ namespace AdApi.GraphObject.Queries
                 .AsNoTracking()
                 .Where(e => e.Uuid == uuid);
         }
+ */
         
         [UseDbContext(typeof(AdDbContext))]
         public IQueryable<Category> GetCategories([ScopedService] AdDbContext context)

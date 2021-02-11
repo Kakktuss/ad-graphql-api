@@ -1,4 +1,5 @@
-﻿using AdApi.GraphObject.Queries.Types.Ads;
+﻿using AdApi.GraphObject.Queries.FilterTypes;
+using AdApi.GraphObject.Queries.Types.Ads;
 using AdApi.GraphObject.Queries.Types.Metrics;
 using HotChocolate.Types;
 
@@ -8,21 +9,21 @@ namespace AdApi.GraphObject.Queries
     {
         protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
         {
-/**
- *             descriptor.Field(e => e.GetAds(default))
+           descriptor.Field(e => e.GetAds(default))
                 .Type<ListType<AdObjectType>>()
-                .UseProjection()
-                .UseFiltering();
+                .UsePaging()
+                .UseFiltering<AdFilterType>();
 
-            descriptor.Field(e => e.GetAd(default, default))
+/**
+ *            descriptor.Field(e => e.GetAd(default, default))
                 .Type<AdObjectType>()
                 .UseProjection()
                 .UseFiltering();
  */
             
-            descriptor.Field(e => e.GetCategories(default))
-                .Type<ListType<CategoryObjectType>>()
-                .UseFiltering();
+           descriptor.Field(e => e.GetCategories(default))
+               .UsePaging()
+               .Type<ListType<CategoryObjectType>>();
         }
     }
 }

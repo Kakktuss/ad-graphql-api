@@ -8,6 +8,14 @@ namespace AdApi.GraphObject.Queries.FilterTypes
         protected override void Configure(IFilterInputTypeDescriptor<Ad> descriptor)
         {
             descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(f => f.Categories)
+                .Type<ListFilterInputType<CategoryFilterType>>()
+                .Description("Ad categories");
+
+            descriptor.Field(f => f.Metrics)
+                .Type<ListFilterInputType<MetricFilterType>>()
+                .Description("Ad metrics");
         }
     }
 }

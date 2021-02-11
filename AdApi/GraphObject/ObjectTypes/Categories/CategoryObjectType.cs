@@ -1,4 +1,5 @@
 ﻿using AdApi.GraphObject.Queries.DataLoaders;
+using AdApi.GraphObject.Queries.FilterTypes;
 using AdApi.GraphObject.Queries.Types.Ads;
 using AdApplication.EntityFrameworkDataAccess;
 using AdApplication.Models.Categories;
@@ -10,24 +11,16 @@ namespace AdApi.GraphObject.Queries.Types.Metrics
     {
         protected override void Configure(IObjectTypeDescriptor<Category> descriptor)
         {
-            descriptor.BindFieldsExplicitly();
-            
             descriptor.Field(e => e.Uuid)
-                .Type<UuidType>()
-                .UseFiltering();
+                .Type<UuidType>();
             
             descriptor.Field(e => e.Name)
-                .Type<StringType>()
-                .UseFiltering();
-
-            descriptor.Field(e => e.Ads).Ignore();
-            /**
-             * descriptor.Field(f => f.Ads)
+                .Type<StringType>();
+            
+            descriptor.Field(f => f.Ads)
+                .Type<ListType<AdObjectType>>()
                 .ResolveWith<CategoryResolver>(t => t.GetAdsAsync(default!, default!, default!, default!))
-                .Type<AdObjectType>()
-                .UseDbContext<AdDbContext>()
-                .UseFiltering();
-             */
+                .UseDbContext<AdDbContext>();
         }
     }
 }

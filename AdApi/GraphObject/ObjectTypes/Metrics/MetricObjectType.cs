@@ -1,4 +1,5 @@
-﻿using AdApi.GraphObject.Queries.DataLoaders;
+﻿using System.Collections.Generic;
+using AdApi.GraphObject.Queries.DataLoaders;
 using AdApi.GraphObject.Queries.Types.Ads;
 using AdApplication.EntityFrameworkDataAccess;
 using AdApplication.Models.Metric;
@@ -12,18 +13,15 @@ namespace AdApi.GraphObject.Queries.Types.Metrics
         {
             // Ignore ads and domain events
             descriptor.Field(e => e.Uuid)
-                .Type<UuidType>()
-                .UseFiltering();
+                .Type<UuidType>();
             
             descriptor.Field(e => e.Name)
-                .Type<StringType>()
-                .UseFiltering();
+                .Type<StringType>();
             
             descriptor.Field(f => f.Ads)
+                .Type<ListType<AdObjectType>>()
                 .ResolveWith<MetricResolver>(t => t.GetAdsAsync(default!, default!, default!, default!))
-                .Type<AdObjectType>()
-                .UseDbContext<AdDbContext>()
-                .UseFiltering();
+                .UseDbContext<AdDbContext>();
         }
     }
 }

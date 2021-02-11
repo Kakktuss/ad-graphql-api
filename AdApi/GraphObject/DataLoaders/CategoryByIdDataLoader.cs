@@ -27,10 +27,12 @@ namespace AdApi.GraphObject.Queries.DataLoaders
         protected override async Task<IReadOnlyDictionary<int, Category>> LoadBatchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
         {
             await using AdDbContext dbContext = _dbContextFactory.CreateDbContext();
-            
-            return await dbContext.Categories
+
+            var categories = await dbContext.Categories
                 .Where(s => keys.Contains(s.Id))
                 .ToDictionaryAsync(t => t.Id, cancellationToken);
+            
+            return categories;
         }
     }
 }

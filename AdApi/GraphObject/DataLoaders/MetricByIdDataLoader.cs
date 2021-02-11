@@ -30,6 +30,7 @@ namespace AdApi.GraphObject.Queries.DataLoaders
             await using AdDbContext dbContext = _dbContextFactory.CreateDbContext();
             
             return await dbContext.Metrics
+                .Include(s => s.Ads)
                 .Where(s => keys.Contains(s.Id))
                 .ToDictionaryAsync(t => t.Id, cancellationToken);
         }

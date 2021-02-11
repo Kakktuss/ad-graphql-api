@@ -9,8 +9,10 @@ namespace AdApi.GraphObject.Queries.FilterTypes
     {
         protected override void Configure(IFilterInputTypeDescriptor<Metric> descriptor)
         {
-            descriptor.BindFieldsExplicitly();
-            descriptor.Field(f => f.Ads).Ignore();
+            descriptor.BindFieldsImplicitly();
+            
+            descriptor.Field(e => e.Name)
+                .Type<StringOperationFilterInputType>();
         }
     }
 }

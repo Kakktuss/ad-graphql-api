@@ -70,16 +70,12 @@ namespace AdApi
             });
 
             services.AddGraphQLServer()
-                .AddType<AdObjectType>()
-                .AddType<CategoryObjectType>()
-                .AddType<MetricObjectType>()
                 .AddQueryType<QueryType>()
                 .AddMutationType<AdMutationsType>()
+                .AddFiltering()
                 .AddDataLoader<CategoryByIdDataLoader>()
                 .AddDataLoader<MetricByIdDataLoader>()
-                .AddDataLoader<AdByIdDataLoader>()
-                .AddProjections()
-                .AddFiltering();
+                .AddDataLoader<AdByIdDataLoader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
