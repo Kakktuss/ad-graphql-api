@@ -4,12 +4,11 @@ using AdApplication.EntityFrameworkDataAccess.Configurations;
 using AdApplication.Models.Ad;
 using AdApplication.Models.Categories;
 using AdApplication.Models.Metric;
-using BuildingBlock.DataAccess.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdApplication.EntityFrameworkDataAccess
 {
-    public class AdDbContext : DbContext, IUnitOfWork
+    public class AdDbContext : DbContext
     {
         public AdDbContext(DbContextOptions<AdDbContext> options) : base(options)
         {

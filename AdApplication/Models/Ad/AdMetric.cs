@@ -1,6 +1,4 @@
-﻿using BuildingBlock.DataAccess;
-
-namespace AdApplication.Models.Ad
+﻿namespace AdApplication.Models.Ad
 {
     public class AdMetric
     {
